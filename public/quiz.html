@@ -19,17 +19,25 @@
         <!-- all the multiple choice options -->
         <div id="choices">
             <dl class="layout-stacked">
-                <dd ng-class="{active: quizlet.isSelected(0)}" ng-class="{answer: quizlet.getAnswer(0)}">
-                    <button ng-click="quizlet.selectChoice(0)">{{ quizlet.choices[0].artist }}</button>
+                <dd ng-class="{answer: quizlet.getAnswer(0)}">
+                    <button ng-class="quizlet.getStyle(0)" ng-click="quizlet.selectChoice(0)">
+                        {{ quizlet.choices[0].artist }}
+                    </button>
                 </dd>
-                <dd ng-class="{active: quizlet.isSelected(1)}" ng-class="{answer: quizlet.getAnswer(1)}">
-                    <button ng-click="quizlet.selectChoice(1)">{{ quizlet.choices[1].artist }}</button> 
+                <dd ng-class="{answer: quizlet.getAnswer(1)}">
+                    <button ng-class="quizlet.getStyle(1)"  ng-click="quizlet.selectChoice(1)">
+                        {{ quizlet.choices[1].artist }}
+                    </button> 
                 </dd>
-                <dd ng-class="{active: quizlet.isSelected(2)}" ng-class="{answer: quizlet.getAnswer(2)}">
-                    <button ng-click="quizlet.selectChoice(2)">{{ quizlet.choices[2].artist }}</button> 
+                <dd ng-class="{answer: quizlet.getAnswer(2)}">
+                    <button ng-class="quizlet.getStyle(2)" ng-click="quizlet.selectChoice(2)">
+                        {{ quizlet.choices[2].artist }}
+                    </button> 
                 </dd>
-                <dd ng-class="{active: quizlet.isSelected(3)}" ng-class="{answer: quizlet.getAnswer(3)}">
-                    <button ng-click="quizlet.selectChoice(3)">{{ quizlet.choices[3].artist }}</button> 
+                <dd ng-class="{answer: quizlet.getAnswer(3)}">
+                    <button ng-class="quizlet.getStyle(3)" ng-click="quizlet.selectChoice(3)">
+                        {{ quizlet.choices[3].artist }}
+                    </button> 
                 </dd>
             </dl>
             <div>

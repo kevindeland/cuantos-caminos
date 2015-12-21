@@ -42,8 +42,22 @@
             this.choice = setChoice;
         }
 
+        this.getStyle = function(index) {
+            if(this.isSelected(index))  {
+                return 'active';
+            } else if(this.hasAnswered && this.isCorrect(index)){
+                return 'correct';
+            } else if(this.hasAnswered && (this.choice == index) && !this.isCorrect(index) ) {
+                return 'wrong';
+            }
+        }
+        
         this.isSelected = function(checkChoice) {
-            return this.choice === checkChoice;
+            return !this.hasAnswered && this.choice === checkChoice;
+        }
+
+        this.isCorrect = function(choice) {
+            return this.choices[choice].correct;
         }
 
         this.checkCorrect = function() {
@@ -63,10 +77,9 @@
 
         this.nextQuestion = function() {
             console.log('loading next question...');
-            this.loadData();
-            this.chioce = null;
+            this.choice = null;
             this.hasAnswered = false;
-
+            this.loadData();
         }
         
     }]);

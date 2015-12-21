@@ -10,3 +10,16 @@ dd {
     justify-content: center;
     
 }
+
+dd .active {
+    color: blue;
+    
+}
+
+dd .correct {
+    color: green;
+}
+
+dd .wrong {
+    color: red;
+}
