@@ -10,37 +10,37 @@
     </head>
     <body ng-controller="QuizController as quizlet">
 
-        <h1>Que cantó esto??</h1>
+        <h1>Que cantó esto?? (Who sings this?)</h1>
+        <!-- spanish lyrics -->
         <div id="lyrics-foreign"> <h2><em>{{ quizlet.spanish }}</em></h2></div>
+        <!-- English lyrics, only shows up after has been answered -->
         <div id="lyrics-english" ng-show="quizlet.hasAnswered"> <h2>{{ quizlet.english }} </h2></div>
-        <!--        <section ng-controller="ChoiceController as choice"> -->
+
+        <!-- all the multiple choice options -->
         <div id="choices">
             <dl class="layout-stacked">
                 <dd ng-class="{active: quizlet.isSelected(0)}" ng-class="{answer: quizlet.getAnswer(0)}">
-                    <a href ng-click="quizlet.selectChoice(0)"> {{ quizlet.choices[0].full}} </a>
-                    <!-- <button>{{ quizlet.choices[0].artist }}</button> -->
+                    <button ng-click="quizlet.selectChoice(0)">{{ quizlet.choices[0].artist }}</button>
                 </dd>
                 <dd ng-class="{active: quizlet.isSelected(1)}" ng-class="{answer: quizlet.getAnswer(1)}">
-                    <a href ng-click="quizlet.selectChoice(1)"> {{ quizlet.choices[1].full }} </a>
-                    <!-- <button>{{ quizlet.choices[1].artist }}</button> -->
+                    <button ng-click="quizlet.selectChoice(1)">{{ quizlet.choices[1].artist }}</button> 
                 </dd>
                 <dd ng-class="{active: quizlet.isSelected(2)}" ng-class="{answer: quizlet.getAnswer(2)}">
-                    <a href ng-click="quizlet.selectChoice(2)" > {{ quizlet.choices[2].full }} </a>
-                    <!-- <button>{{ quizlet.choices[2].artist }}</button> -->
+                    <button ng-click="quizlet.selectChoice(2)">{{ quizlet.choices[2].artist }}</button> 
                 </dd>
                 <dd ng-class="{active: quizlet.isSelected(3)}" ng-class="{answer: quizlet.getAnswer(3)}">
-                    <a href ng-click="quizlet.selectChoice(3)"> {{ quizlet.choices[3].full }} </a>
-                    <!-- <button>{{ quizlet.choices[3].artist }}</button> -->
+                    <button ng-click="quizlet.selectChoice(3)">{{ quizlet.choices[3].artist }}</button> 
                 </dd>
             </dl>
             <div>
+                <!-- submit answer, turns into Next Question after answered -->
                 <button ng-hide="quizlet.hasAnswered" ng-click="quizlet.checkCorrect()">Submit</button>
                 <button ng-show="quizlet.hasAnswered" ng-click="quizlet.nextQuestion()">>Next Question</button>
             </div>
         </div>
-        <!--</section> -->
+
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
-        <!-- <script src="https://cc-ui-core.w3ibm.mybluemix.net/components/angular/angular.min.js"></script> -->
+
         <!-- My JS -->
         <script type="text/javascript" src="js/quiz.js"></script>
         <script type="text/javascript" src="js/lyrics.js"></script>

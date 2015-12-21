@@ -38,6 +38,7 @@
         this.hasAnswered = false;
 
         this.selectChoice = function(setChoice) {
+            console.log('new selection:', setChoice);
             this.choice = setChoice;
         }
 
