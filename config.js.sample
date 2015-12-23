@@ -1,0 +1,14 @@
+var config = {};
+
+config.watson = {
+    username: '814a1d97-6f96-4f81-8b10-dd05dd948741',
+    password: '5u05jscmNnBZ',
+    version: 'v2'
+};
+
+config.spotify = {
+    client_id: 'e10a51e188f34089857915f71a2d39d3', // Your client id
+    client_secret: 'ca83412781fe4683b76f6035639f1f53' // Your client secret
+};
+
+module.exports = config;
