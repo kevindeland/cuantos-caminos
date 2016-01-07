@@ -9,16 +9,29 @@
         console.log('in quiz controller');
         var este = this;
 
+        var url_params = $location.search();
         this.access_token = $location.search().access_token;
+        console.log(this.access_token);
+        this.playlist_id = $location.search().playlist_id;
+        console.log(this.playlist_id);
+        
+        // TODO this is where the playlist Id is stored
+        var playlist_map = {
+            "rock": {
+                user: 'spotify',
+                playlist: '2Qi8yAzfj1KavAhWz1gaem'
+            },
+            "rap": {
+                user: 'spotify',
+                playlist: '4jONxQje1Fmw9AFHT7bCp8'
+            }
+        };
 
-        this.rock = {
-            user: 'spotify',
-            playlist: '2Qi8yAzfj1KavAhWz1gaem'
-        }
+        // playlist selection
+        var playlist = playlist_map[this.playlist_id] || playlist_map["rock"];s
 
         this.loadData = function() {
-            //    lyricsService.getQuizlet(this.access_token, function(data) {
-            lyricsService.getPlaylistQuizlet(this.access_token, this.rock.user, this.rock.playlist, function(data) {
+            lyricsService.getPlaylistQuizlet(this.access_token, playlist.user, playlist.playlist, function(data) {
                 
                 este.spanish = data.spanish;
                 este.english = data.english;

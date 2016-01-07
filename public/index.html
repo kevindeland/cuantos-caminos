@@ -31,10 +31,6 @@
       </div>
     </div>
 
-    <div class="container">
-        <a href="/lyrics" class="btn btn-default">Generate lyrics</button>
-    </div>
-
     <script id="user-profile-template" type="text/x-handlebars-template">
       <h1>Logged in as {{display_name}}</h1>
       <div class="media">
@@ -62,7 +58,8 @@
         <dt>Refresh token</dt><dd class="text-overflow">{{refresh_token}}></dd>
       </dl>
 <!--      <h1><a href="/playlists.html#?access_token={{access_token}}">CLICK HERE TO PICK A PLAYLIST</a></h1> -->
-      <h1><a href="/quiz.html#?access_token={{access_token}}">CLICK HERE TO PLAY DEFAULT QUIZ</a></h1>
+      <h1><a href="/quiz.html#?access_token={{access_token}}&playlist_id=rock">CLICK HERE TO PLAY ROCK QUIZ</a></h1>
+      <h1><a href="/quiz.html#?access_token={{access_token}}&playlist_id=rap">CLICK HERE TO PLAY RAP QUIZ</a></h1>
       
       <!--      <h1><a href="/playlists.html?access_token={{access_token}}">CLICK HERE TO VIEW PLAYLISTS</a></h1> -->
     </script>
