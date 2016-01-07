@@ -28,7 +28,7 @@
         };
 
         // playlist selection
-        var playlist = playlist_map[this.playlist_id] || playlist_map["rock"];s
+        var playlist = playlist_map[this.playlist_id] || playlist_map["rock"];
 
         this.loadData = function() {
             lyricsService.getPlaylistQuizlet(this.access_token, playlist.user, playlist.playlist, function(data) {
