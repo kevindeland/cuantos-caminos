@@ -30,13 +30,6 @@ fs.readdirSync(controllers_path).forEach(function (file) {
 // KMD move-ables
 var _ = require('underscore');
 
-var watson = require('watson-developer-cloud');
-var language = watson.language_translation({
-    username: '814a1d97-6f96-4f81-8b10-dd05dd948741',
-    password: '5u05jscmNnBZ',
-    version: 'v2'
-});
-
 var app = express();
 
 app.use(express.static(__dirname + '/public'))
@@ -50,10 +43,12 @@ function buildHeader() {
     }
 }
 
+var config = require('./config').url;
 
-var port = process.env.PORT || 8888
+var port = config.port;
 var my_uri = process.env.VCAP_SERVICES ? 'http://cuantos-caminos.mybluemix.net' : 'http://localhost:' + port; //
 var redirect_uri = my_uri + '/callback';
+
 
 app.get('/login', spotifyAuth.generateLogin(redirect_uri));
 app.get('/callback', spotifyAuth.generateCallback(redirect_uri, '/#'));
