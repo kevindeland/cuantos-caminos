@@ -64,6 +64,7 @@ function pickRandomTracks(tracks, callback) {
             song: potential_track.name,
             artist: potential_track.artists[0].name
         }
+        newest_track.song = sanitizeSongName(newest_track.song);
         console.log('testing track ' + JSON.stringify(newest_track));
         track_choices.push(newest_track);
     }
@@ -87,6 +88,18 @@ function pickRandomTracks(tracks, callback) {
     });
     
 };
+/**
+ * Remove 'Remastered' and other various impurities...
+ */
+function sanitizeSongName(song_name) {
+    var remastered_string = '- Remastered';
+    if(song_name.indexOf(remastered_string) > 0) {
+        var splice_me = song_name.indexOf(remastered_string);
+        song_name = song_name.substring(0, splice_me).trim();
+    }
+    return song_name;
+}
+
 function translate(track_choices, verse, callback) {
     watson.language.translate({
         text: verse,
