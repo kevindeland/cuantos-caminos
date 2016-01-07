@@ -93,6 +93,7 @@ function pickRandomTracks(tracks, callback) {
  */
 function sanitizeSongName(song_name) {
     var remastered_string = '- Remastered';
+    var other = ' - Mono / Remastered 2015';
     if(song_name.indexOf(remastered_string) > 0) {
         var splice_me = song_name.indexOf(remastered_string);
         song_name = song_name.substring(0, splice_me).trim();
