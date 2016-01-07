@@ -10,7 +10,7 @@
     </head>
     <body ng-controller="QuizController as quizlet">
 
-        <h1>Que cantó esto?? (Who sings this?)</h1>
+        <h1>{{ quizlet.getTitle() }}</h1>
         <!-- spanish lyrics -->
         <div id="lyrics-foreign"> <h2><em>{{ quizlet.spanish }}</em></h2></div>
         <!-- English lyrics, only shows up after has been answered -->
@@ -21,22 +21,22 @@
             <dl class="layout-stacked">
                 <dd ng-class="{answer: quizlet.getAnswer(0)}">
                     <button ng-class="quizlet.getStyle(0)" ng-click="quizlet.selectChoice(0)">
-                        {{ quizlet.choices[0].artist }}
+                        {{ quizlet.getChoice(0) }}
                     </button>
                 </dd>
                 <dd ng-class="{answer: quizlet.getAnswer(1)}">
                     <button ng-class="quizlet.getStyle(1)"  ng-click="quizlet.selectChoice(1)">
-                        {{ quizlet.choices[1].artist }}
+                        {{ quizlet.getChoice(1) }} 
                     </button> 
                 </dd>
                 <dd ng-class="{answer: quizlet.getAnswer(2)}">
                     <button ng-class="quizlet.getStyle(2)" ng-click="quizlet.selectChoice(2)">
-                        {{ quizlet.choices[2].artist }}
+                        {{ quizlet.getChoice(2) }}
                     </button> 
                 </dd>
                 <dd ng-class="{answer: quizlet.getAnswer(3)}">
                     <button ng-class="quizlet.getStyle(3)" ng-click="quizlet.selectChoice(3)">
-                        {{ quizlet.choices[3].artist }}
+                        {{ quizlet.getChoicep(3) }}
                     </button> 
                 </dd>
             </dl>

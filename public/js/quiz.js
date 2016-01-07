@@ -24,12 +24,22 @@
             "rap": {
                 user: 'spotify',
                 playlist: '4jONxQje1Fmw9AFHT7bCp8'
+            },
+            "beatles": {
+                user: 'spotify',
+                playlist: '5hy00Zmp1HNIR3xTgTDOaM'
             }
         };
 
         // playlist selection
         var playlist = playlist_map[this.playlist_id] || playlist_map["rock"];
 
+        this.justArtists = true;
+        // there's no way to win if all the artists are the beatles
+        if (this.playlist_id == 'beatles') {
+            this.justArtists = false;
+        }
+        
         this.loadData = function() {
             lyricsService.getPlaylistQuizlet(this.access_token, playlist.user, playlist.playlist, function(data) {
                 
@@ -44,6 +54,23 @@
         };
 
         this.loadData();
+
+        // different Title depending on whether you print just artists, or whole song
+        this.getTitle = function() {
+            if(this.justArtists) {
+                return 'Que cantó esto?? (Who sings this?)';
+            } else {
+                return 'Qué canción es esta?? (Which song is this?)';
+            }
+        }
+
+        // use as choice: artist, or full song name
+        this.getChoice = function(index) {
+            if(this.choices)
+                return this.justArtists ? this.choices[index].artist : this.choices[index].full;
+            else
+                return 'Loading...';
+        }
         
         // initialize null selection
         // maybe move this to load data???
