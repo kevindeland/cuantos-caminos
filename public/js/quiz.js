@@ -34,6 +34,14 @@
         // playlist selection
         var playlist = playlist_map[this.playlist_id] || playlist_map["rock"];
 
+        this.getSpanish = function() {
+            if(this.spanish) {
+                return this.spanish;
+            } else {
+                return "Loading new song...";
+            }
+        }
+        
         this.justArtists = true;
         // there's no way to win if all the artists are the beatles
         if (this.playlist_id == 'beatles') {
@@ -115,9 +123,13 @@
                 return 'false';
         }
 
+
         this.nextQuestion = function() {
             console.log('loading next question...');
+            // reset everything so you can display "Loading..."
             this.choice = null;
+            this.choices = null;
+            this.spanish = null;
             this.hasAnswered = false;
             this.loadData();
         }

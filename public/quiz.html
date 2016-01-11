@@ -12,7 +12,7 @@
 
         <h1>{{ quizlet.getTitle() }}</h1>
         <!-- spanish lyrics -->
-        <div id="lyrics-foreign"> <h2><em>{{ quizlet.spanish }}</em></h2></div>
+        <div id="lyrics-foreign" > <h2><em>{{ quizlet.getSpanish() }}</em></h2></div>
         <!-- English lyrics, only shows up after has been answered -->
         <div id="lyrics-english" ng-show="quizlet.hasAnswered"> <h2>{{ quizlet.english }} </h2></div>
 
