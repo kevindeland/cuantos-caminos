@@ -14,21 +14,22 @@
         console.log(this.access_token);
         this.playlist_id = $location.search().playlist_id;
         console.log(this.playlist_id);
-        
-        // TODO this is where the playlist Id is stored
+
+        //  this is where the playlist id is stored
         var playlist_map = {
             "rock": {
                 user: 'spotify',
                 playlist: '2Qi8yAzfj1KavAhWz1gaem'
             },
-            "rap": {
+            "pop": {
                 user: 'spotify',
-                playlist: '4jONxQje1Fmw9AFHT7bCp8'
+                playlist: '5FJXhjdILmRA2z5bvz4nzf'
             },
             "beatles": {
                 user: 'spotify',
                 playlist: '5hy00Zmp1HNIR3xTgTDOaM'
             }
+            // TODO add your own playlist
         };
 
         // playlist selection
