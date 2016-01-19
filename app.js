@@ -54,7 +54,6 @@ app.get('/login', spotifyAuth.generateLogin(redirect_uri));
 app.get('/callback', spotifyAuth.generateCallback(redirect_uri, '/#'));
 app.get('/refresh_token', spotifyAuth.refreshToken);
 
-app.get('/api/v1/quizlet', controllers.v1.quizlet.getRandom);
 app.get('/api/v1/quizlet/:user/:playlist', controllers.v1.quizlet.get);
 
 console.log('Listening on port ' + port);

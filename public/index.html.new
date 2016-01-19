@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="index">
+  <head>
+    <title>Example of the Authorization Code flow with Spotify</title>
+    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">-->
+    
+  </head>
+
+  <body ng-controller="LoginController as login">
+      <div class="container" ng-hide="login.isLoggedIn()">
+          {{login.display_name}}
+          <div id="login">
+              <h1>This is an example of the Authorization Code flow</h1>
+              <a href="/login" ng-click="login.executeLogin()" class="btn btn-primary">Log in with Spotify</a>
+          </div>
+          <div id="loggedin">
+              <div id="user-profile">
+              </div>
+              <div id="oauth">
+              </div>
+              <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
+          </div>
+      </div>
+
+      <div id="account" ng-show="login.isLoggedIn()">
+          <h1>Logged in as {{login.display_name}}</h1>
+          <div class="media">
+              <div class="pull-left">
+                  <!--                  <img class="media-object" width="150" src="{{login.images.0.url}}" /> -->
+              </div>
+              <div class="media-body">
+                  <dl class="dl-horizontal">
+                      <dt>Display name</dt><dd class="clearfix">{{login.display_name}}</dd>
+                      <dt>Id</dt><dd>{{login.id}}</dd>
+                      <dt>Email</dt><dd>{{login.email}}</dd>
+                      <dt>Spotify URI</dt><dd><a href="{{login.external_urls.spotify}}">{{login.external_urls.spotify}}</a></dd>
+                      <dt>Link</dt><dd><a href="{{login.href}}">{{login.href}}</a></dd>
+                      <!--<dt>Profile Image</dt><dd class="clearfix"><a href="{{login.images.0.url}}">{{login.images.0.url}}</a></dd>-->
+                      <dt>Country</dt><dd>{{login.country}}</dd>
+                  </dl>
+              </div>
+          </div>
+      </div>
+      
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+
+      <!-- My JS -->
+      <script type="text/javascript" src="js/login.js"></script>
+      
+  </body>
+</html>
+
