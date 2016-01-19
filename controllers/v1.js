@@ -5,12 +5,42 @@ var spotify = require('../lib/spotify');
 var genius = require('../lib/genius');
 var watson = require('../lib/watson');
 
+var MY_PLAYLIST = 'Starred';
+
+var POPULAR_PLAYLISTS = [
+    {
+        name: 'Rock Classics',
+        uri: 'spotify:user:spotify:playlist:2Qi8yAzfj1KavAhWz1gaem',
+        link: 'https://open.spotify.com/user/spotify/playlist/2Qi8yAzfj1KavAhWz1gaem'
+    }
+]
 
 var rand = function(max) {
     return Math.floor((Math.random() * max));
 }
 
-
+function getMe(access_token) {
+    return function (callback) {
+        spotify.getMe(access_token, callback);
+    };
+}
+function getMyUserId(me, callback) {
+    var user_id = me.id;
+    var display_name = me.display_name;
+    callback(null, user_id);
+};
+function getMyPlaylists(access_token) {
+    return function(user_id, callback) {
+        spotify.getUserPlaylists(access_token, user_id, callback);
+    }
+};
+function selectPlaylist(user_playlists, callback) {
+    var target_playlist = _.find(user_playlists.items, function(playlist) {
+        return playlist.name === MY_PLAYLIST;
+    });
+    //                    console.log('found playlist', target_playlist);
+    callback(null, target_playlist.tracks.href);
+};
 function getPlaylistTracks (access_token) {
     return function (tracks_href, callback) {
         spotify.getSomePlaylistTracks(access_token, tracks_href, callback);
@@ -90,6 +120,31 @@ module.exports = {
      * returns one "Quizlet", aka 4 possible songs, and 1 English --> Spanish translation
      */
     quizlet: {
+        // generate a random quizlet
+        getRandom: function(req, res) {
+
+            var access_token = req.query.access_token;
+
+            async.waterfall([
+                getMe(access_token),
+                getMyUserId,
+                getMyPlaylists(access_token),
+                selectPlaylist,
+                // BREAK HERE to get tracks for other playlist
+                getPlaylistTracks(access_token),
+                pickRandomTracks,
+                translate
+            ], function(err, track_choices, english, spanish) {
+                var result = {
+                    spanish: spanish,
+                    english: english,
+                    choices: track_choices
+                };
+                console.log(result);
+                res.send(result)                
+            });
+        },
+
         get: function(req, res) {
 
             var access_token = req.query.access_token;
