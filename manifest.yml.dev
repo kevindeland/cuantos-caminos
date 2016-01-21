@@ -1,0 +1,8 @@
+applications:
+- name: cuantos-caminos-dev
+  memory: 128M
+  command: node app.js
+  instances: 1
+  path: .
+  env:
+    NODE_ENV: development
