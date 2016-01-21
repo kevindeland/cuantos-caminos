@@ -1,5 +1,6 @@
-var async = require('async');
-var _ = require('underscore');
+var async = require('async'),
+    _ = require('underscore'),
+    chalk= require('chalk');
 
 var spotify = require('../lib/spotify');
 var genius = require('../lib/genius');
@@ -16,46 +17,83 @@ function getPlaylistTracks (access_token) {
         spotify.getSomePlaylistTracks(access_token, tracks_href, callback);
     }
 };
+
+/**
+ * 1) pick one track, get lyrics for it
+ * -- repeat until you get a track with lyrics
+ * 2) populate the other three tracks
+ * -- they must be unique
+ */
 function pickRandomTracks(tracks, callback) {
     console.log('found ' + tracks.items.length + ' tracks');
 
-    var NUM_CHOICES = 4;
-    var indices = [];
-    var track_choices = [];
-    for(var i = 0; i < NUM_CHOICES; i++) {
-        var potential = rand(tracks.items.length);
+    var NUM_CHOICES = 4,
+        indices = [],
+        track_choices = [];
 
-        while(indices.indexOf(potential)  >= 0) {
-            potential = rand(tracks.items.length);
-        }
+    var correct_answer;
+
+    function pickRandomTrack(tracks, failed_indices, callback) {
         
-        var potential_track = tracks.items[potential].track;
-        var newest_track = {
-            song: potential_track.name,
-            artist: potential_track.artists[0].name
-        }
-        newest_track.song = sanitizeSongName(newest_track.song);
-        console.log('testing track ' + JSON.stringify(newest_track));
-        track_choices.push(newest_track);
+        var rand_index = rand(tracks.items.length),
+            full_track = tracks.items[rand_index].track,
+            
+            track = {
+                song: full_track.name,
+                artist: full_track.artists[0].name
+            };
+
+
+        
+        track.song = sanitizeSongName(track.song);
+
+        genius.getRandomVerse(track.song, track.artist, function(err, verse) {
+            console.log('got verse ' + verse);
+            if(err) {
+                callback(err);
+            } else if (!verse) {
+                // make sure we don't check again
+                failed_indices.push(rand_index);
+                pickRandomTrack(tracks, failed_indices, callback);
+            } else {
+                track.verse = verse;
+                track.index = rand_index;
+                track.correct = true;
+                callback(null, track);
+            }
+        })
     }
 
-    // TODO ALL OF THESE TRACKS MUST BE LEGIT
+    pickRandomTrack(tracks, [], function(err, track) {
+        console.log('picked track %s', chalk.blue(JSON.stringify(track)));
 
-    console.log(track_choices);
-    // pick random one to be the answer
-    var correct_answer = track_choices[rand(NUM_CHOICES)];
-    correct_answer.correct = true;
+        track_choices.push(track);
+        indices.push(track.index);
+        
+        for (var i = 1; i < NUM_CHOICES; i++) {
+            var potential = rand(tracks.items.length);
 
-    var spanish = null;
-    
-    genius.getRandomVerse(correct_answer.song, correct_answer.artist, function(err, verse) {
-        console.log('got verse ' + verse);
-        if(verse) {
-            callback(null, track_choices, verse);
-        } else {
-            callback(null, track_choices, null);
+            while(indices.indexOf(potential)  >= 0) {
+                potential = rand(tracks.items.length);
+            }
+
+            var potential_track = tracks.items[potential].track;
+            var newest_track = {
+                song: potential_track.name,
+                artist: potential_track.artists[0].name
+            }
+            newest_track.song = sanitizeSongName(newest_track.song);
+            console.log('choosing track %s', chalk.blue(JSON.stringify(newest_track)));
+            track_choices.push(newest_track);
+
         }
+
+        var spanish = null;
+        
+        callback(null, track_choices, track_choices[0].verse);
+
     });
+    
     
 };
 /**
