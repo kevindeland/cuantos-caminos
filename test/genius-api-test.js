@@ -1,16 +1,29 @@
 
 var geniusApi = require('../lib/genius-api');
-
+var chalk = require('chalk');
 
 
 module.exports.searchTest = function(test) {
-    
-    geniusApi.search("Poetic Justice Kendrick Lamar", function(err, body) {
 
-        body.forEach(function(hit) {
-            console.log(hit);
+    var songTitle = "Pour Some Sugar On Me (2012)",
+        artist = "Def Leppard",
+        searchTerm = songTitle + ' ' + artist;
+    
+    geniusApi.search(searchTerm, function(err, body) {
+
+        console.log('found %s results', chalk.yellow(body.length));
+        body.forEach(function(bod) {
+            console.log(chalk.red(JSON.stringify(bod)));
         });
+        var hit = body[0].result;
+
+        console.log(chalk.blue(JSON.stringify(hit)));
+        test.equals(songTitle.toLowerCase(), hit.title.toLowerCase());
+        test.equals(artist.toLowerCase(), hit.primary_artist.name.toLowerCase());
+        
         test.done();
+        return;
+        
     });
 };
 
