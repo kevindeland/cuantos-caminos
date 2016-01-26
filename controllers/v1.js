@@ -89,8 +89,12 @@ function pickRandomTracks(tracks, callback) {
         }
 
         var spanish = null;
+
+        track_choices = jumbleTrackOrder(track_choices);
+        var correct_index = track_choices.correct_i;
+        console.log(track_choices, correct_index);
         
-        callback(null, track_choices, track_choices[0].verse);
+        callback(null, track_choices.tracks, track_choices.tracks[correct_index].verse);
 
     });
     
@@ -122,6 +126,36 @@ function translate(track_choices, verse, callback) {
         callback(err, track_choices, verse, verso);
     });
 };
+
+/**
+ * Fisher-Yates shuffle
+ * http://bost.ocks.org/mike/shuffle/
+ */
+function jumbleTrackOrder(tracks) {
+    var m = tracks.length, temp, i, correct_i;
+    
+    // While there remain elements to shuffle
+    while(m) {
+        // pick random element from an ever-decreasing m
+        i = Math.floor(Math.random() * m--);
+        
+        // splice removes the element, push adds it to the new array
+        //        copy.push(array.splice(i, 1)[0]);
+        // but splice takes N operations to move each element, so...
+
+        // simply swapping it with the current element will give us the same result
+        t = tracks[m];
+        tracks[m] = tracks[i];
+        tracks[i] = t;
+        // must keep track of which track is correct (after swap: use m, not i)
+        if(tracks[m].correct) {
+            correct_i = m;
+        }
+    }
+
+    return {tracks: tracks, correct_i: correct_i};
+};
+
 module.exports = {
 
     /**
