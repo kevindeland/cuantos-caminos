@@ -2,10 +2,7 @@ var config = {};
 
 var port = process.env.PORT || 8888; 
 
-var my_uri = process.env.VCAP_SERVICES ?
-    (process.env.NODE_ENV == 'production' ?
-     'http://YOUR-APP-NAME.mybluemix.net' : 'http://YOUR-APP-NAME-DEV.mybluemix.net')
-    : 'http://localhost:' + port;
+var my_uri = process.env.VCAP_SERVICES ? 'http://YOUR-APP-NAME.mybluemix.net' : 'http://localhost:' + port;
 
 config.url = {
     port: port,

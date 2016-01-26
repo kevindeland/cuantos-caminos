@@ -45,14 +45,9 @@ function buildHeader() {
 
 var config = require('./config').url;
 
-var port = config.port;
-var my_uri = process.env.VCAP_SERVICES ?
-    (process.env.NODE_ENV == 'production' ?
-     'http://cuantos-caminos.mybluemix.net' : 'http://cuantos-caminos-dev.mybluemix.net')
-    : 'http://localhost:' + port;
-
-var redirect_uri = my_uri + '/callback';
-
+var port = config.port,
+    my_uri = config.uri,
+    redirect_uri = config.redirect_uri;
 
 app.get('/login', spotifyAuth.generateLogin(redirect_uri));
 app.get('/callback', spotifyAuth.generateCallback(redirect_uri, '/#'));
