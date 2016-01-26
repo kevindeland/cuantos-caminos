@@ -1,14 +1,33 @@
 var config = {};
 
+var port = process.env.PORT || 8888; 
+
+var my_uri = process.env.VCAP_SERVICES ?
+    (process.env.NODE_ENV == 'production' ?
+     'http://YOUR-APP-NAME.mybluemix.net' : 'http://YOUR-APP-NAME-DEV.mybluemix.net')
+    : 'http://localhost:' + port;
+
+config.url = {
+    port: port,
+    uri: my_uri,
+    redirect_uri: my_uri + '/callback'
+};
+
 config.watson = {
-    username: 'YOUR_USERNAME_HERE',
-    password: 'YOUR_PASSWORD_HERE',
+    username: 'GET_FROM_BLUEMIX_IN_STEP_2',
+    password: 'GET_FROM_BLUEMIX_IN_STEP_2',
     version: 'v2'
 };
 
 config.spotify = {
-    client_id: 'eab51140b34a488cab959a8f75b74563', // Your client id
-    client_secret: '17232c3b0e7f4c3596c4d769f4e77589' // Your client secret
+    client_id: 'GET_FROM_SPOTIFY_IN_STEP_3', // Your client id
+    client_secret: 'GET_FROM_SPOTIFY_IN_STEP_3' // Your client secret
+};
+
+config.genius = {
+    CLIENT_ID: "GET_FROM_GENIUS_IN_STEP_4",
+    CLIENT_SECRET: "GET_FROM_GENIUS_IN_STEP_4",
+    CLIENT_ACCESS_TOKEN: "GET_FROM_GENIUS_IN_STEP_4"
 };
 
 module.exports = config;
