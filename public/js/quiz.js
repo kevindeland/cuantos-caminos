@@ -50,7 +50,12 @@
         
         this.loadData = function() {
             lyricsService.getPlaylistQuizlet(this.access_token, playlist.user, playlist.playlist, function(data) {
-                
+                if(data.err) {
+                    este.error = data.err;
+                    return;
+                } else {
+                    este.error = null;
+                }
                 este.spanish = data.spanish;
                 este.english = data.english;
 
@@ -133,7 +138,15 @@
             this.hasAnswered = false;
             this.loadData();
         }
-        
+
+
+        this.getErrorMsg = function() {
+            if(this.error) {
+                return this.error;
+            } else {
+                return null;
+            }
+        }
     }]);
     
 })();

@@ -118,7 +118,12 @@ function translate(track_choices, verse, callback) {
         text: verse,
         source: 'en', target: 'es'
     }, function(err, translation) {
-        if(err || !translation) {
+        if(err) {
+            console.log(chalk.red("ERROR:", JSON.stringify(err)));
+            callback(err);
+            return;
+        }
+        if(!translation) {
             callback(null, track_choices, null); return;
         }
         console.log('received translation ', JSON.stringify(translation, null, 2));
@@ -178,6 +183,10 @@ module.exports = {
                 pickRandomTracks,
                 translate
             ], function(err, track_choices, english, spanish) {
+                if(err) {
+                    res.send({err: err});
+                    return;
+                }
                 var result = {
                     spanish: spanish,
                     english: english,
