@@ -7,16 +7,14 @@
  * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
  */
 
-var express = require('express'); // Express web server framework
-var request = require('request'); // "Request" library
-var querystring = require('querystring');
-var cookieParser = require('cookie-parser');
-var fs = require('fs');
+var express = require('express'), // Express web server framework
+    request = require('request'), // "Request" library
+    querystring = require('querystring'),
+    cookieParser = require('cookie-parser'),
+    fs = require('fs');
 
 // libs
-var spotifyAuth = require('./lib/spotify_auth');
-
-var genius = require('./lib/genius');
+var spotifyAuth = require('./lib/spotify_auth'); // for authenticating with spotify
 
 // controllers
 var controllers = {};
@@ -27,21 +25,10 @@ fs.readdirSync(controllers_path).forEach(function (file) {
     } 
 });
    
-// KMD move-ables
-var _ = require('underscore');
-
 var app = express();
 
 app.use(express.static(__dirname + '/public'))
     .use(cookieParser());
-
-
-var access_token = null;
-function buildHeader() {
-    return {
-        headers: { 'Authorization': 'Bearer ' + access_token }
-    }
-}
 
 var config = require('./config').url;
 
