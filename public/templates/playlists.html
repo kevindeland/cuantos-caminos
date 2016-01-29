@@ -1,0 +1,10 @@
+<section>
+    <div id="playlist-container">
+        <dl class="layout-stacked">
+            <button ng-repeat="playlist in playlistCtrl.playlists">
+                <!--<a href="/quiz.html#?access_token={{access_token}}&user={{playlist.user_id}}&{{playlist.playlist_id">-->
+                Click here to play the {{playlist.fullName}} playlist
+            </button>
+        </dl>
+    </div>
+</section>
