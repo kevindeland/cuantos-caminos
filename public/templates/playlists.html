@@ -1,9 +1,27 @@
 <section>
+    
+    <h1>Logged in as {{playlistCtrl.user.display_name}}</h1>
+    <div class="media">
+        <div class="pull-left">
+            <img src="{{playlistCtrl.user.images[0].url}}"/>
+        </div>
+        <div class="media-body">
+            <dl class="dl-horizontal">
+                <dt>Display name</dt><dd class="clearfix">{{playlistCtrl.user.display_name}}</dd>
+                <dt>Id</dt><dd>{{playlistCtrl.user.id}}</dd>
+                <dt>Email</dt><dd>{{playlistCtrl.user.email}}</dd>
+                <dt>Spotify URI</dt><dd><a href="{{playlistCtrl.user.external_urls.spotify}}">{{playlistCtrl.user.external_urls.spotify}}</a></dd>
+                <dt>Link</dt><dd><a href="{{playlistCtrl.user.href}}">{{playlistCtrl.user.href}}</a></dd>
+                <dt>Country</dt><dd>{{playlistCtrl.user.country}}</dd>
+            </dl>
+        </div>
+    </div>
+    
     <div id="playlist-container">
         <dl class="layout-stacked">
             <button ng-repeat="playlist in playlistCtrl.playlists">
-                <!--<a href="/quiz.html#?access_token={{access_token}}&user={{playlist.user_id}}&{{playlist.playlist_id">-->
-                Click here to play the {{playlist.fullName}} playlist
+                <a href="/quiz.html#?access_token={{playlistCtrl.access_token}}&playlist_id={{playlist.playlist}}">hey</a>
+                Click here to play the {{playlist.fullName}} playlist by {{playlist.user}}
             </button>
         </dl>
     </div>
