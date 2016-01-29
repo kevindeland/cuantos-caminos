@@ -1,39 +1,24 @@
 
 (function() {
     // depends on 'lyrics' module
-    var app = angular.module('quiz', ['lyrics']);
+    var app = angular.module('quiz', [
+        'ngCookies', // for getting access token
+        'lyrics'
+    ]);
 
-//    app.config([
     
-    app.controller('QuizController', ['$location', 'lyricsService', function($location, lyricsService) {
+    app.controller('QuizController', ['$location', '$cookies', 'lyricsService', function($location, $cookies, lyricsService) {
         console.log('in quiz controller');
         var este = this;
 
+        this.access_token = $cookies.get('access_token');
+        
         var url_params = $location.search();
-        this.access_token = $location.search().access_token;
-        console.log(this.access_token);
         this.playlist_id = $location.search().playlist_id;
         console.log(this.playlist_id);
+        this.user_id = $location.search().user_id;
+        console.log(this.user_id);
         
-        // TODO this is where the playlist Id is stored
-        var playlist_map = {
-            "rock": {
-                user: 'spotify',
-                playlist: '2Qi8yAzfj1KavAhWz1gaem'
-            },
-            "rap": {
-                user: 'spotify',
-                playlist: '4jONxQje1Fmw9AFHT7bCp8'
-            },
-            "beatles": {
-                user: 'spotify',
-                playlist: '5hy00Zmp1HNIR3xTgTDOaM'
-            }
-        };
-
-        // playlist selection
-        var playlist = playlist_map[this.playlist_id] || playlist_map["rock"];
-
         this.getSpanish = function() {
             if(this.spanish) {
                 return this.spanish;
@@ -42,14 +27,15 @@
             }
         }
         
-        this.justArtists = true;
+        this.justArtists = false;
         // there's no way to win if all the artists are the beatles
-        if (this.playlist_id == 'beatles') {
+/*        if (this.playlist_id == 'beatles') {
             this.justArtists = false;
         }
+*/
         
         this.loadData = function() {
-            lyricsService.getPlaylistQuizlet(this.access_token, playlist.user, playlist.playlist, function(data) {
+            lyricsService.getPlaylistQuizlet(this.access_token, this.user_id, this.playlist_id, function(data) {
                 if(data.err) {
                     este.error = data.err;
                     return;

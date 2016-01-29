@@ -53,7 +53,7 @@
         this.playlistClicked = function(playlist, user) {
             
             // TODO add to routeConfig
-            var newUrl = '/quiz?access_token=' + this.access_token + '&playlist_id=rock';
+            var newUrl = '/quiz?playlist_id=' + playlist + '&user_id=' + user;
             $location.url(newUrl);
         };
         
