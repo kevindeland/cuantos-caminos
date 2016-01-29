@@ -3,7 +3,8 @@
     var app = angular.module('index', [
         'ngRoute', // simple page routing and templating
         'ngCookies', // for cookies
-        'spotify' // for spotify APIs and such
+        'spotify', // for spotify APIs and such
+        'quiz' // for quizz controller
     ])
 
     app.config(['$routeProvider', function($routeProvider) {
@@ -18,7 +19,12 @@
                 controller: 'PlaylistController',
                 controllerAs: 'playlistCtrl'
             })
-        
+            .when('/quiz', {
+                templateUrl: 'templates/quiz.html',
+                controller: 'QuizController',
+                controllerAs: 'quizlet'
+            })
+                  
             .otherwise({redirectTo: '/'});
     }]);
 
@@ -30,7 +36,7 @@
         };
     }]);
 
-    app.controller('PlaylistController', ['$cookies', 'spotifyService', function($cookies, spotifyService) {
+    app.controller('PlaylistController', ['$location', '$cookies', 'spotifyService', function($location, $cookies, spotifyService) {
         console.log('in playlist controller');
 
         var that = this;
@@ -39,9 +45,17 @@
         this.refresh_token = $cookies.get('refresh_token');
         this.user = null;
 
+        // load data
         spotifyService.getMe(this.access_token, function(response) {
             that.user = response.data;
         });
+        
+        this.playlistClicked = function(playlist, user) {
+            
+            // TODO add to routeConfig
+            var newUrl = '/quiz?access_token=' + this.access_token + '&playlist_id=rock';
+            $location.url(newUrl);
+        };
         
         this.playlists = [
             {

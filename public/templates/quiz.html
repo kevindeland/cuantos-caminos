@@ -1,0 +1,41 @@
+<section>
+
+    <h1>{{ quizlet.getTitle() }}</h1>
+    <div id="error-msg"> {{ quizlet.getErrorMsg() }} </div>
+    <!-- spanish lyrics -->
+    <div id="lyrics-foreign" > <h2><em>{{ quizlet.getSpanish() }}</em></h2></div>
+    <!-- English lyrics, only shows up after has been answered -->
+    <div id="lyrics-english" ng-show="quizlet.hasAnswered"> <h2>{{ quizlet.english }} </h2></div>
+
+    <!-- all the multiple choice options -->
+    <div id="choices">
+        <dl class="layout-stacked">
+            <dd ng-class="{answer: quizlet.getAnswer(0)}">
+                <button ng-class="quizlet.getStyle(0)" ng-click="quizlet.selectChoice(0)">
+                    {{ quizlet.getChoice(0) }}
+                </button>
+            </dd>
+            <dd ng-class="{answer: quizlet.getAnswer(1)}">
+                <button ng-class="quizlet.getStyle(1)"  ng-click="quizlet.selectChoice(1)">
+                    {{ quizlet.getChoice(1) }} 
+                </button> 
+            </dd>
+            <dd ng-class="{answer: quizlet.getAnswer(2)}">
+                <button ng-class="quizlet.getStyle(2)" ng-click="quizlet.selectChoice(2)">
+                    {{ quizlet.getChoice(2) }}
+                </button> 
+            </dd>
+            <dd ng-class="{answer: quizlet.getAnswer(3)}">
+                <button ng-class="quizlet.getStyle(3)" ng-click="quizlet.selectChoice(3)">
+                    {{ quizlet.getChoice(3) }}
+                </button> 
+            </dd>
+        </dl>
+        <div>
+            <!-- submit answer, turns into Next Question after answered -->
+            <button ng-hide="quizlet.hasAnswered" ng-click="quizlet.checkCorrect()">Submit</button>
+            <button ng-show="quizlet.hasAnswered" ng-click="quizlet.nextQuestion()">>Next Question</button>
+        </div>
+    </div>
+
+</section>

@@ -19,7 +19,8 @@
     
     <div id="playlist-container">
         <dl class="layout-stacked">
-            <button ng-repeat="playlist in playlistCtrl.playlists">
+            <button ng-repeat="playlist in playlistCtrl.playlists"
+                    ng-click="playlistCtrl.playlistClicked(playlist.playlist, playlist.user)">
                 <a href="/quiz.html#?access_token={{playlistCtrl.access_token}}&playlist_id={{playlist.playlist}}">hey</a>
                 Click here to play the {{playlist.fullName}} playlist by {{playlist.user}}
             </button>
