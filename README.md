@@ -1,22 +1,14 @@
 ## Cuantos Caminos
 ### (How Many Roads?)
 
-
-#### Running locally...
-```npm install``` to install packages
-
-```node app.js``` to run locally
-
-Open browser, goto http://localhost:8888
-
-Log in with Spotify account
-
-Click 'CLICK HERE TO PLAY DEFAULT QUIZ' button to start quiz
+To fully implement the app, follow the instructions at [the developerWorks article here](https://www.ibm.com/developerworks/library/cc-watson-rockstar-language-translation-lyrics-bluemix-trs/).
 
 
+#### Running in international regions
 
-#### Local changes to make
+If you cannot find your organization via the command line, you may have to switch your region by following the steps [here](https://www.ibm.com/developerworks/community/blogs/enablingwithbluemix/entry/regions_in_bluemix?lang=en).
 
-[lib/watson.js](lib/watson.js) -- line 12: change creds to whatever is in Bluemix
-
-[lib/spotify_auth.js](lib/spotify_auth.js) -- line 5: change client_id and client_secret to whatever is in Spotify
+Example:
+```bash
+cf l -a https://api.eu-gb.bluemix.net
+```
