@@ -27,7 +27,13 @@ fs.readdirSync(controllers_path).forEach(function (file) {
    
 var app = express();
 
-app.use(express.static(__dirname + '/public'))
+var content_path;
+if(process.env.NODE_ENV && process.env.NODE_ENV == 'production') {
+    content_path = '/public/dist';
+} else {
+    content_path = '/public';
+}
+app.use(express.static(__dirname + content_path))
     .use(cookieParser());
 
 var config = require('./config').url;
