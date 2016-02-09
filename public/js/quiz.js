@@ -25,7 +25,7 @@
             } else {
                 return "Loading new song...";
             }
-        }
+        };
         
         this.justArtists = false;
         // there's no way to win if all the artists are the beatles
@@ -49,7 +49,7 @@
                     choice.full = choice.song + ' by ' + choice.artist;
                 });
                 este.choices = data.choices;
-            })
+            });
         };
 
         this.loadData();
@@ -61,7 +61,7 @@
             } else {
                 return 'Qué canción es esta?? (Which song is this?)';
             }
-        }
+        };
 
         // use as choice: artist, or full song name
         this.getChoice = function(index) {
@@ -69,7 +69,7 @@
                 return this.justArtists ? this.choices[index].artist : this.choices[index].full;
             else
                 return 'Loading...';
-        }
+        };
         
         // initialize null selection
         // maybe move this to load data???
@@ -79,7 +79,7 @@
         this.selectChoice = function(setChoice) {
             console.log('new selection:', setChoice);
             this.choice = setChoice;
-        }
+        };
 
         this.getStyle = function(index) {
             if(this.isSelected(index))  {
@@ -89,15 +89,15 @@
             } else if(this.hasAnswered && (this.choice == index) && !this.isCorrect(index) ) {
                 return 'wrong';
             }
-        }
+        };
         
         this.isSelected = function(checkChoice) {
             return !this.hasAnswered && this.choice === checkChoice;
-        }
+        };
 
         this.isCorrect = function(choice) {
             return this.choices[choice].correct;
-        }
+        };
 
         this.checkCorrect = function() {
             console.log('you selected: ' + this.choice);
@@ -107,12 +107,12 @@
             } else {
                 console.log('WRONG');
             }
-        }
+        };
 
         this.getAnswer = function(i) {
             if(!this.hasAnswered)
                 return 'false';
-        }
+        };
 
 
         this.nextQuestion = function() {
@@ -123,7 +123,7 @@
             this.spanish = null;
             this.hasAnswered = false;
             this.loadData();
-        }
+        };
 
 
         this.getErrorMsg = function() {
@@ -132,7 +132,7 @@
             } else {
                 return null;
             }
-        }
+        };
     }]);
     
 })();

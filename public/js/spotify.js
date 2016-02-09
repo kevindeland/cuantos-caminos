@@ -16,5 +16,5 @@
                 $http(req).then(callback);
             };
             
-        }])
+        }]);
 })();

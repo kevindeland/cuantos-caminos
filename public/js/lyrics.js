@@ -18,7 +18,7 @@
                 doHttpGet(route, function(data) {
                     console.log(data);
                     callback(data);
-                })
-            }
-        }])
+                });
+            };
+        }]);
 })();

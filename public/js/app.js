@@ -5,7 +5,7 @@
         'ngCookies', // for cookies
         'spotify', // for spotify APIs and such
         'quiz' // for quizz controller
-    ])
+    ]);
 
     app.config(['$routeProvider', function($routeProvider) {
         $routeProvider
