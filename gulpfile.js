@@ -4,9 +4,11 @@ var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var htmlreplace = require('gulp-html-replace');
+var sass = require('gulp-sass');
 
 var paths = {
     alljs: 'public/js/*.js',
+    allscss: 'public/scss/*.scss',
     components: ['public/components/angular.min.js', 'public/components/angular-route.min.js', 'public/components/angular-cookies.min.js'],
     templates: 'public/templates/*.html',
     dist: 'public/dist'
@@ -19,14 +21,20 @@ gulp.task('lint', function() {
 });
 
 // TODO copy css (sassify)
+gulp.task('sass', function() {
+    return gulp.src(paths.allscss)
+        .pipe(sass())
+        .pipe(gulp.dest('public/dist/css'));
+});
 
-// TODO copy angular templates
+// copy angular templates into dist.
 gulp.task('templates', function() {
     return gulp.src(paths.templates)
         .pipe(gulp.dest('public/dist/templates'));
 });
 
-
+// concat and minify scripts.
+// replace script tags in index.html
 gulp.task('scripts', function() {
     gulp.src(paths.components)
         .pipe(concat('all-angular.min.js'))
@@ -51,6 +59,7 @@ gulp.task('watch', function() {
     gulp.watch(paths.js, ['lint', 'scripts']);
     gulp.watch(paths.components, ['scripts']);
     gulp.watch(paths.templates, ['templates']);
+    gulp.watch(paths.allscss, ['sass']);
 });
 
 gulp.task('default', ['lint', 'templates', 'scripts']);

@@ -1,0 +1,26 @@
+$base-background-color: #79aaee;
+$active-answer-color: blue;
+$correct-answer-color: green;
+$wrong-answer-color: red;
+
+body {
+    background: $base-background-color;
+}
+
+dd {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+dd .active {
+    color: $active-answer-color;
+}
+
+dd .correct {
+    color: $correct-answer-color;
+}
+
+dd .wrong {
+    color: $wrong-answer-color;
+}
