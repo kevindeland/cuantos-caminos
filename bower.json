@@ -1,0 +1,9 @@
+{
+    "name": "cuantos-caminos",
+    "version": "1.0.0",
+    "dependencies": {
+        "angular": "~1.5.0",
+        "angular-route": "~1.5.0",
+        "angular-cookies": "~1.5.0"
+    }
+}
