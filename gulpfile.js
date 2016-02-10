@@ -7,12 +7,17 @@ var uglify = require('gulp-uglify');
 var htmlreplace = require('gulp-html-replace');
 var sass = require('gulp-sass');
 var sequence = require('run-sequence');
+var bower = require('gulp-bower');
 
 var paths = {
-    alljs: 'public/js/*.js',
-    allscss: 'public/scss/*.scss',
-    components: ['public/components/angular.min.js', 'public/components/angular-route.min.js', 'public/components/angular-cookies.min.js'],
+    js: 'public/js/*.js',
+    scss: 'public/scss/*.scss',
     templates: 'public/templates/*.html',
+    components: [
+        'public/components/angular/angular.min.js',
+        'public/components/angular-route/angular-route.min.js',
+        'public/components/angular-cookies/angular-cookies.min.js'
+    ],
     src: 'public/',
     dist: 'build/'
 }
@@ -24,11 +29,15 @@ gulp.task('clean', function() {
     return del(paths.dist);
 });
 
+gulp.task('bower', function() {
+    return bower();
+});
+
 /**
  * Jshint helps detect errors and potential problems in JavaScript code
  */
 gulp.task('lint', function() {
-    return gulp.src(paths.alljs)
+    return gulp.src(paths.js)
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
@@ -37,7 +46,7 @@ gulp.task('lint', function() {
  * Generates css files
  */
 gulp.task('sass', function() {
-    return gulp.src(paths.allscss)
+    return gulp.src(paths.scss)
         .pipe(sass())
         .pipe(gulp.dest(paths.dist + 'css/'));
 });
@@ -46,7 +55,7 @@ gulp.task('sass', function() {
  * Generates css file for local use
  */
 gulp.task('sass-local', function() {
-   return gulp.src(paths.allscss)
+   return gulp.src(paths.scss)
         .pipe(sass())
         .pipe(gulp.dest(paths.src + 'css/'));
 });
@@ -65,10 +74,10 @@ gulp.task('templates', function() {
  */
 gulp.task('scripts', function() {
     gulp.src(paths.components)
-        .pipe(concat('all-angular.min.js'))
+        .pipe(concat('components.min.js'))
         .pipe(gulp.dest(paths.dist + 'components/'));
     
-    gulp.src(paths.alljs)
+    gulp.src(paths.js)
         .pipe(concat('all.js'))
         .pipe(gulp.dest(paths.dist + 'js/'))
         .pipe(rename('all.min.js'))
@@ -78,7 +87,7 @@ gulp.task('scripts', function() {
     return gulp.src('public/index.html')
         .pipe(htmlreplace({
             scripts: 'js/all.min.js',
-            components: 'components/all-angular.min.js'
+            components: 'components/components.min.js'
         }))
         .pipe(gulp.dest(paths.dist));
 });
@@ -90,14 +99,12 @@ gulp.task('watch', function() {
     gulp.watch(paths.js, ['lint', 'scripts']);
     gulp.watch(paths.components, ['scripts']);
     gulp.watch(paths.templates, ['templates']);
-    gulp.watch(paths.allscss, ['sass', 'sass-local']);
+    gulp.watch(paths.scss, ['sass', 'sass-local']);
 });
 
 /**
  * Build for production
  */
-//gulp.task('build', sequence('clean', ['sass', 'lint', 'templates', 'scripts']));
-
 gulp.task('build', function(callback) {
-    sequence('clean', ['sass', 'lint', 'templates', 'scripts'], callback);
+    sequence(['clean', 'bower'], ['sass', 'lint', 'templates', 'scripts'], callback);
 });
