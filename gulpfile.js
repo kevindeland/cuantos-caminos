@@ -8,6 +8,7 @@ var htmlreplace = require('gulp-html-replace');
 var sass = require('gulp-sass');
 var sequence = require('run-sequence');
 var bower = require('gulp-bower');
+var child_process = require('child_process');
 
 var paths = {
     js: 'public/js/*.js',
@@ -108,3 +109,23 @@ gulp.task('watch', function() {
 gulp.task('build', function(callback) {
     sequence(['clean', 'bower'], ['sass', 'lint', 'templates', 'scripts'], callback);
 });
+
+gulp.task('deploy', ['build'], function() {
+
+    var pass = process.env['CF_SECRET'];
+    var branch = process.env['TRAVIS_BRANCH'];
+    var space = (branch === 'master') ? 'prod' : 'dev';
+    var manifest = (branch === 'master') ? '' : ' -f manifest.yml.dev';
+
+    log(child_process.execSync('cf api api.ng.bluemix.net'));
+    log(child_process.execSync('cf auth kmdeland@us.ibm.com ' + pass));
+    log(child_process.execSync('cf target -o kevins-org -s ' + space));
+    // be patient, the whole command must be executed before it prints anything
+    log(child_process.execSync('cf push ' + manifest)); 
+});
+
+gulp.task('default', ['deploy']);
+
+function log (msg) {
+    console.log(msg.toString());
+}

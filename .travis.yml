@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - "0.12"
+  
+branches:
+  only:
+    - v2
+
+notifications:
+  email:
+    kmdeland@us.ibm.com
+
+install:
+  - sudo apt-get install -y wget
+  - wget -qO cfcli.deb https://cli.run.pivotal.io/stable?release=debian64&source=github &
+  - wait %1
+  - sudo dpkg -i cfcli.deb
+  - npm install
+  - npm install -g bower
+
+
+script:
+  - gulp
