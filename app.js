@@ -29,7 +29,8 @@ var app = express();
 
 var content_path;
 if(process.env.NODE_ENV && process.env.NODE_ENV == 'production') {
-    content_path = '/public/dist';
+    console.log('in production');
+    content_path = '/build';
 } else {
     content_path = '/public';
 }

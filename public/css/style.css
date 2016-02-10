@@ -1,25 +1,16 @@
-
 body {
-    background: #aaaaaa;
-}
-
+  background: #79aaee; }
 
 dd {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
-}
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
 
 dd .active {
-    color: blue;
-    
-}
+  color: blue; }
 
 dd .correct {
-    color: green;
-}
+  color: green; }
 
 dd .wrong {
-    color: red;
-}
+  color: red; }

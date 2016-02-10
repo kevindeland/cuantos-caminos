@@ -1,4 +1,4 @@
 node_modules
 config.js
 manifest.yml.*
-public/dist
+build
