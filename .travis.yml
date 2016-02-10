@@ -15,9 +15,9 @@ install:
   - wget -qO cfcli.deb https://cli.run.pivotal.io/stable?release=debian64&source=github &
   - wait %1
   - sudo dpkg -i cfcli.deb
-  - npm install
   - npm install -g bower
 
 
 script:
-  - gulp
+  - gulp build
+  - gulp deploy

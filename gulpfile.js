@@ -110,7 +110,7 @@ gulp.task('build', function(callback) {
     sequence(['clean', 'bower'], ['sass', 'lint', 'templates', 'scripts'], callback);
 });
 
-gulp.task('deploy', ['build'], function() {
+gulp.task('deploy', function() {
 
     var pass = process.env['CF_SECRET'];
     var branch = process.env['TRAVIS_BRANCH'];
