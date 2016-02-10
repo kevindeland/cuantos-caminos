@@ -117,11 +117,10 @@ gulp.task('deploy', function() {
     var space = (branch === 'master') ? 'prod' : 'dev';
     var manifest = (branch === 'master') ? '' : ' -f manifest.yml.dev';
 
-    log(child_process.execSync('cf api api.ng.bluemix.net'));
-    log(child_process.execSync('cf auth kmdeland@us.ibm.com ' + pass));
-    log(child_process.execSync('cf target -o kevins-org -s ' + space));
-    // be patient, the whole command must be executed before it prints anything
-    log(child_process.execSync('cf push ' + manifest)); 
+    child_process.execSync('cf api api.ng.bluemix.net', {stdio:[0,1,2]});
+    child_process.execSync('cf auth kmdeland@us.ibm.com ' + pass, {stdio:[0,1,2]});
+    child_process.execSync('cf target -o kevins-org -s ' + space, {stdio: [0,1,2]});
+    child_process.execSync('cf push ' + manifest, {stdio:[0,1,2]}); 
 });
 
 gulp.task('default', ['deploy']);

@@ -16,9 +16,6 @@ install:
   - wait %1
   - sudo dpkg -i cfcli.deb
   - npm install
-  - npm install -g gulp
-
-
+  
 script:
-  - gulp build
-  - gulp deploy
+  - npm test

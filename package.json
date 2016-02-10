@@ -4,6 +4,9 @@
     "description": "Basic examples of the Spotify authorization flows through oAuth2",
     "version": "0.0.1",
     "main": "app.js",
+    "scripts": {
+        "test": "gulp"
+    },
     "dependencies": {
         "async": "^1.5.0",
         "chalk": "^1.1.1",
