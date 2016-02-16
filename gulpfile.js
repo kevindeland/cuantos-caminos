@@ -30,6 +30,9 @@ gulp.task('clean', function() {
     return del(paths.dist);
 });
 
+/**
+ * Run bower. Bower target path is defined in .bowerrc. Packages defined in bower.json
+ */
 gulp.task('bower', function() {
     return bower();
 });
@@ -125,6 +128,3 @@ gulp.task('deploy', function() {
 
 gulp.task('default', ['deploy']);
 
-function log (msg) {
-    console.log(msg.toString());
-}
